@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController Control;
 
     private bool isLand => Control.isGrounded;
-
+    
     private void Awake()
     {
         Control = GetComponent<CharacterController>();
