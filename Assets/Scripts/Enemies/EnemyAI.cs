@@ -56,8 +56,6 @@ public class EnemyAI : MonoBehaviour
                 
             }
         }
-        
-        Debug.Log(_playeristarget);
     }
 
     void OnDrawGizmos()

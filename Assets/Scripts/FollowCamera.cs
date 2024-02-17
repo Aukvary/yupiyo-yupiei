@@ -10,7 +10,7 @@ public class FollowCamera : MonoBehaviour
     [SerializeField] private float _y;
     [SerializeField] private float _z;
 
-    private Vector3 _position => new(_followobject.position.x + _x, _followobject.position.y + _y, transform.position.z + _z);
+    private Vector3 _position => new Vector3(_followobject.position.x + _x, _followobject.position.y + _y, transform.position.z + _z);
 
     void Start()
     {
