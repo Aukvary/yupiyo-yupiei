@@ -28,7 +28,6 @@ public class FireBall : MonoBehaviour
         MoveFixedUpdate();
     }
 
-
     private void MoveFixedUpdate()
     {
         transform.position += transform.forward * _speed * Time.deltaTime;

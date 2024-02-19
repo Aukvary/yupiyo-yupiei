@@ -48,7 +48,7 @@ public class EnemyAI : MonoBehaviour
         _playeristarget = false;
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up, direction, out hit))
+        if (Physics.Raycast(transform.position + Vector3.up, direction, out hit, 5))
         {
             if (hit.collider.gameObject == Player.gameObject && Vector3.Angle(transform.forward, direction) < ViewAngle)
             {

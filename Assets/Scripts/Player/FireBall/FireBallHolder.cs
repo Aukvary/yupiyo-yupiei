@@ -11,7 +11,6 @@ public class FireBallHolder : MonoBehaviour
 
     private Ray ray => _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.5f));
 
-
     private void Update()
     {
         Rotate();
@@ -32,8 +31,6 @@ public class FireBallHolder : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-       
-
         Gizmos.color = Color.red;
         Gizmos.DrawRay(ray);
     }
