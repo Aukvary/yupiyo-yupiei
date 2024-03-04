@@ -21,6 +21,7 @@ public class FireBall : MonoBehaviour
     private void Start()
     {
         Destroy(gameObject, _lifetime);
+
     }
 
     private void FixedUpdate()

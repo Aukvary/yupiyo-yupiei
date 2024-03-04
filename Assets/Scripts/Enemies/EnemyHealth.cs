@@ -1,19 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private int _health = 100;
+    [SerializeField] private float _health;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision col)
     {
-        var fireball = collision.gameObject.GetComponent<FireBall>();
-        if (fireball)
+        var fireball = col.gameObject.GetComponent<FireBall>();
+        if (fireball != null)
+            DealDamage(fireball.damage);
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        var explosion = col.gameObject.GetComponent<Explosion>();
+
+        if (explosion != null)
         {
-            _health -= fireball.damage;
-            if (_health <= 0)
-                Destroy(gameObject);
+            DealDamage(explosion.damage);
         }
+
+    }
+
+    private void DealDamage(float damage)
+    {
+        _health -= damage;
+        if (_health <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

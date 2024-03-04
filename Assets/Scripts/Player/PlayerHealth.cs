@@ -45,4 +45,22 @@ class PlayerHealth : MonoBehaviour
         GetComponent<FireBallCaster>().enabled = false;
         GetComponent<PlayerCamera>().enabled = false;
     }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        var healer = col.gameObject.GetComponent<HealthKit>();
+        var explosion = col.gameObject.GetComponent<Explosion>();
+        if (healer != null)
+        {
+            _health = Mathf.Clamp(_health + healer.healValue, 0, _maxHealth);
+            Destroy(healer);
+            DrawHealthBar();
+        }
+
+        if(explosion != null)
+        {
+            DealDamage(explosion.damage);
+        }
+            
+    }
 }
