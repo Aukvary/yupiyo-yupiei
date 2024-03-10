@@ -2,15 +2,21 @@ using UnityEngine;
 
 public abstract class HealthController : MonoBehaviour 
 {
+    [SerializeField] private float _health;
     protected float health 
     {
-        get => health;
+        get => _health;
         set 
         {
-            health = value;
-            if (health <= 0)
+            _health = value;
+            if (_health <= 0)
                 Die();
         }
+    }
+
+    public virtual void DealDamage(float damage)
+    {
+        health -= damage;
     }
 
     protected virtual void OnTriggerEnter(Collider col)
@@ -18,7 +24,7 @@ public abstract class HealthController : MonoBehaviour
         var explosion = col.GetComponent<Explosion>();
         if (explosion != null)
         {
-            health -= explosion.damage;
+            DealDamage(explosion.damage);
         }
     }
 

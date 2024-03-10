@@ -1,9 +1,8 @@
 using UnityEngine;
 
-class PlayerHealth : MonoBehaviour
+class PlayerHealth : HealthController
 {
     [Header("Player Settings")]
-    [SerializeField] private float _health = 100;
     [SerializeField] private RectTransform _currentHealth;
 
     [Header("UI Settings")]
@@ -14,7 +13,7 @@ class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
-        _maxHealth = _health;
+        _maxHealth = health;
     }
 
     private void Start()
@@ -23,21 +22,15 @@ class PlayerHealth : MonoBehaviour
     }
 
     private void DrawHealthBar() =>
-        _currentHealth.anchorMax = new Vector2(_health / _maxHealth, 1);
+        _currentHealth.anchorMax = new Vector2(health / _maxHealth, 1);
 
-    public void DealDamage(float damage)
+    public override void DealDamage(float damage)
     {
-        _health -= Mathf.Clamp(damage, 0, int.MaxValue);
-
-        if(_health <= 0)
-        {
-            Die();
-        }
-
+       base.DealDamage(damage);
        DrawHealthBar();
     }
 
-    private void Die()
+    protected override void Die()
     {
         _deathUI.SetActive(true);
         _gamePlayerUI.SetActive(false);
@@ -46,21 +39,21 @@ class PlayerHealth : MonoBehaviour
         GetComponent<PlayerCamera>().enabled = false;
     }
 
-    private void OnTriggerEnter(Collider col)
+    protected override void OnTriggerEnter(Collider col)
     {
         var healer = col.gameObject.GetComponent<HealthKit>();
-        var explosion = col.gameObject.GetComponent<Explosion>();
         if (healer != null)
         {
-            _health = Mathf.Clamp(_health + healer.healValue, 0, _maxHealth);
-            Destroy(healer);
+            health = Mathf.Clamp(health + healer.healValue, 0, _maxHealth);
+            Destroy(healer.gameObject);
             DrawHealthBar();
         }
 
-        if(explosion != null)
+/*        var explosion = col.gameObject.GetComponent<Explosion>();
+        if (explosion != null)
         {
             DealDamage(explosion.damage);
-        }
-            
+        }*/
+
     }
 }

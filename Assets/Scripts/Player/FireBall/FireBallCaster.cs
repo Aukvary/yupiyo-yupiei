@@ -6,6 +6,7 @@ public class FireBallCaster : MonoBehaviour
 {
     [SerializeField] private FireBall _fireBallPrefab;
     [SerializeField] private Transform _spawnPoint;
+    public float damage;
 
     private void Update()
     {
@@ -16,7 +17,8 @@ public class FireBallCaster : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Instantiate(_fireBallPrefab, _spawnPoint.position, _spawnPoint.rotation);
+            var fireball = Instantiate(_fireBallPrefab, _spawnPoint.position, _spawnPoint.rotation);
+            fireball.damage = damage;
         }
     }
 }

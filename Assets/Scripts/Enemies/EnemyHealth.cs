@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : HealthController
 {
-    [SerializeField] private float _health;
+    [SerializeField] private PlayerLevelController _playerLevelLink;
+    [SerializeField] private float _exp;
 
     private void OnCollisionEnter(Collision col)
     {
@@ -11,25 +12,14 @@ public class EnemyHealth : MonoBehaviour
             DealDamage(fireball.damage);
     }
 
-    private void OnTriggerEnter(Collider col)
+    public override void DealDamage(float damge)
     {
-        var explosion = col.gameObject.GetComponent<Explosion>();
-
-        if (explosion != null)
-        {
-            DealDamage(explosion.damage);
-        }
-
+        /*base.DealDamage(damge);*/
+        _playerLevelLink.AddEXP(_exp);
     }
 
-    private void DealDamage(float damage)
-    {
-        _health -= damage;
-        if (_health <= 0)
-            Die();
-    }
 
-    private void Die()
+    protected override void Die()
     {
         Destroy(gameObject);
     }

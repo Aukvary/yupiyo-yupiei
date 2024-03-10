@@ -7,9 +7,19 @@ public class FireBall : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _lifetime;
-    [SerializeField] private int _damage = 10;
+    [SerializeField] private float _damage = 10;
 
-    public int damage => _damage;
+    public float damage
+    {
+        get => _damage;
+
+        set
+        {
+            if (_damage <= 0)
+                return;
+            _damage = value;
+        }
+    }
 
     private Rigidbody _rigidbody;
 
